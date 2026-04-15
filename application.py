@@ -14,6 +14,11 @@ except:
     print("Model file not found. Please ensure 'best_model_logistic.pkl' is in the correct directory.")
 application.secret_key = 'super_secret_key'
 application.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'mysql+pymysql://root:prajwal6575@localhost/student_performance_data')
+application.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    "connect_args": {
+        "ssl": {"fake_variable_to_force_ssl": True}
+    }
+}
 application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(application)
 
