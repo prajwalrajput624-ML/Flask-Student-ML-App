@@ -12,20 +12,9 @@ try:
 except:
     model = None
     print("Model file not found. Please ensure 'best_model_logistic.pkl' is in the correct directory.")
+    
 application.secret_key = 'super_secret_key'
 application.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///student.db'
-application.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
-    "connect_args": {
-        "ssl": {"fake_variable_to_force_ssl": True}
-    }
-}
-application.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
-    "connect_args": {
-        "connect_timeout": 60  
-    },
-    "pool_pre_ping": True,     
-    "pool_recycle": 280,     
-}
 application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(application)
 
