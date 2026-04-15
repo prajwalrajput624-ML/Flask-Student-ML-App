@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request,session
+from flask import Flask, render_template, request,session,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask import make_response
 from datetime import datetime
@@ -81,15 +81,16 @@ def login():
         if user:
             session['user_id'] = user.id
             session['username'] = user.username
-            return render_template('index.html')
+            return redirect(url_for('index'))
         else:
             return "Invalid Credentials" 
     return render_template('login.html')
 @application.route('/')
 def index():
-    response = make_response(render_template('login.html'))
-    response.headers['ngrok-skip-browser-warning'] = '69420'
-    return response
+    if 'user_id' in session:
+        return render_template('index.html')
+
+    return render_template('login.html')
 
 
 @application.route('/predict', methods=['GET', 'POST'])
