@@ -19,6 +19,13 @@ application.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
         "ssl": {"fake_variable_to_force_ssl": True}
     }
 }
+application.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    "connect_args": {
+        "connect_timeout": 60  
+    },
+    "pool_pre_ping": True,     
+    "pool_recycle": 280,     
+}
 application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(application)
 
